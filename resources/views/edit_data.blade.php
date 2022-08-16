@@ -26,9 +26,11 @@
         <form action="{{ url('/updatedata/'.$editData->id) }}" method="POST">
             @csrf
             <div class="form-group">
+                
                 <label>Name</label>
                 <input type="text" class="form-control" value="{{ $editData->name }}" name="name"
                 placeholder="Enter your name">
+
                 @error('name')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror

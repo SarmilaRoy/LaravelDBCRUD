@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 Use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
+
 
 class PostController extends Controller
 {
@@ -87,20 +89,36 @@ class PostController extends Controller
         ];
         $this->validate($request,$rules,$cm);
 
-        $updateData=Post::find($id);
-        $updateData->name=$request->name;
-        $updateData->email=$request->email;
-        $updateData->save();
+        // $updateData=Post::find($id);
+        // $updateData->name=$request->name;
+        // $updateData->email=$request->email;
+        // $updateData->save();
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+        DB::update('update posts set name = ?,email = ? where id = ?',[$name,$email,$id]);
+
+      
         Session::Flash('msg','Data successfully Updated');
         return redirect('/');
+
     }
     //delete
 
     public Function deleteData($id){
-        $deleteData=Post::find($id);
-        $deleteData->delete();
+        // $deleteData=Post::find($id);
+        // $deleteData->delete();
+        // DB::delete('delete from posts where id =?',[$id]);
+        // Session::Flash('msg','Data successfully Deleted');
+        // return redirect('/');
+        
+
+        $deleted = DB::delete('delete from posts where id =?',[$id]);
         Session::Flash('msg','Data successfully Deleted');
-        return redirect('/');
+        //return redirect('/');
+        return redirect()->route('home', [$deleted]);
+   
+
     }
 
 }

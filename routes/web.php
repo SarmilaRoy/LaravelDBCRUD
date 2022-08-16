@@ -18,7 +18,7 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');
 // });
 
-Route::get('/',[PostController::class,'showData']);
+Route::get('/',[PostController::class,'showData'])->name('home');
 Route::get('/add-data',[PostController::class,'addData']);
 //add data
 Route::post('/store-data',[PostController::class,'storeData']);
